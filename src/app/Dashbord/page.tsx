@@ -13,7 +13,7 @@ export default function Dashboard() {
     <section className="min-h-dvh bg-slate-50 px-3 py-3 pb-20 md:ml-56 md:px-4 md:pb-3">
       <div className="mx-auto flex w-full max-w-[1600px] flex-col gap-3">
 
-        <header className="flex h-10 items-center justify-end">
+        <header className="flex h-10 items-center justify-center">
           <SearchBar />
         </header>
 
