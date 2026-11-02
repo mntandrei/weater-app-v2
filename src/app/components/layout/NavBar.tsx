@@ -2,10 +2,10 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { House, CloudSun, Info } from "lucide-react";
+import { House, CloudSun, Info, Cloud } from "lucide-react";
 
 const navLinks = [
-  { label: "Home", href: "/", icon: House },
+  { label: "Dashboard", href: "/", icon: House },
   { label: "Weather", href: "/Weather", icon: CloudSun },
   { label: "Info", href: "/Info", icon: Info },
 ];
@@ -14,44 +14,59 @@ export default function NavBar() {
   const pathname = usePathname();
 
   return (
-    <nav className="fixed top-0 left-0 flex h-screen w-64 flex-col bg-linear-to-b from-[#101e38] via-[#183b6b] to-[#1b528a] px-4 text-white shadow-xl">
-      <div className="flex items-center gap-3 border-b border-white/15 px-2 py-7">
-        <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-white/10">
-          <CloudSun size={26} className="text-sky-300" />
+    <nav
+      aria-label="Main navigation"
+      className="fixed inset-x-0 bottom-0 z-50 flex h-16 items-center border-t border-white/10 bg-[#132b4e] text-white md:inset-y-0 md:right-auto md:h-dvh md:w-56 md:flex-col md:border-r md:border-t-0 md:bg-linear-to-b md:from-[#101e38] md:to-[#20538a]"
+    >
+      {/* Branding */}
+      <div className="hidden w-full items-center gap-3 border-b border-white/15 px-4 py-6 md:flex">
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white/10">
+          <CloudSun size={24} className="text-sky-300" />
         </div>
-        <div>
-          <h1 className="text-xl font-semibold tracking-tight">
+
+        <div className="min-w-0">
+          <h1 className="text-base font-semibold">
             Weather App
           </h1>
-          <p className="text-xs text-slate-300">
+          <p className="text-[10px] text-slate-300">
             Your weather dashboard
           </p>
         </div>
       </div>
-      <div className="pt-8">
-        <p className="mb-4 px-4 text-xs font-semibold tracking-widest text-slate-400">
+
+      {/* Navigation */}
+      <div className="w-full md:pt-6">
+        <p className="mb-3 hidden px-5 text-[11px] font-semibold tracking-widest text-slate-400 md:block">
           MENU
         </p>
-        <div className="flex flex-col gap-4">
+
+        <div className="grid grid-cols-3 gap-1 px-2 md:flex md:flex-col md:gap-2 md:px-3">
           {navLinks.map(({ label, href, icon: Icon }) => {
             const isActive = pathname === href;
+
             return (
               <Link
                 key={href}
                 href={href}
-                className={`flex items-center gap-3 rounded-lg px-4 py-3 text-base font-medium transition-colors duration-200 
-                ${isActive ? "bg-white/15 text-white" : "text-slate-300 hover:bg-white/10 hover:text-white"}`}>
-                <Icon size={21} />
+                className={`flex flex-col items-center justify-center gap-1 rounded-lg px-2 py-2 text-[11px] transition-colors md:flex-row md:justify-start md:gap-3 md:px-3 md:py-2.5 md:text-sm ${
+                  isActive
+                    ? "bg-white/15 text-white"
+                    : "text-slate-300 hover:bg-white/10 hover:text-white"
+                }`}
+              >
+                <Icon size={19} className="shrink-0" />
                 <span>{label}</span>
               </Link>
             );
           })}
         </div>
       </div>
-      <div className="mt-auto border-t border-white/15 px-3 py-5">
-        <div className="flex items-center gap-2 text-slate-300">
-          <CloudSun size={17} />
-          <span className="text-xs">By Muntianu Andrei</span>
+
+      {/* Footer */}
+      <div className="mt-auto hidden w-full px-4 pb-5 md:block">
+        <div className="flex items-center gap-2 border-t border-white/15 pt-4 text-xs text-slate-300">
+          <Cloud size={17} />
+          <span>By Muntianu Andrei</span>
         </div>
       </div>
     </nav>
