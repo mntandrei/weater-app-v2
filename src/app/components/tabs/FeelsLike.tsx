@@ -1,10 +1,17 @@
 import { Thermometer } from "lucide-react";
 
-export default function FeelsLike() {
+type FeelsLikeProps = {
+  feelsLike: number | null;
+};
+
+export default function FeelsLike({feelsLike}: FeelsLikeProps) {
   return (
     <article className="flex h-full min-h-[92px] items-center gap-2.5 rounded-xl border border-slate-200 bg-white p-2.5 shadow-sm sm:p-3">
+
       <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-red-50">
-        <Thermometer size={21} className="text-red-500" />
+        <Thermometer
+          size={21}
+          className="text-red-500"/>
       </div>
 
       <div className="min-w-0">
@@ -13,7 +20,7 @@ export default function FeelsLike() {
         </p>
 
         <h3 className="mt-1 text-[15px] font-bold text-slate-900 sm:text-lg">
-          19°C
+          {feelsLike === null ? "—" : `${Math.round(feelsLike)}°C`}
         </h3>
       </div>
     </article>

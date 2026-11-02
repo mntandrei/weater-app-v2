@@ -1,41 +1,46 @@
+
 "use client";
+
 import { Search } from "lucide-react";
 
 type SearchBarProps = {
-  onSearch?: (city: string) => void;
+  onSearch: (city: string) => void;
 };
 
-export default function SearchBar({ onSearch }: SearchBarProps) {
-
-  const handleSearch = (event: React.SubmitEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const rawCity = new FormData(event.target);
-    const clearCity = rawCity.get("city")?.toString().trim() || "";
-
-    if (!clearCity) {
-      return;
-    }
-    console.log("Searching for city:", clearCity);
-    if (onSearch) {
-      onSearch(clearCity);
-    }
-  }
-
+export default function SearchBar({
+  onSearch,
+}: SearchBarProps) {
   return (
-    <div className="relative w-full sm:max-w-xs">
-      <Search
-        size={17}
-        className="pointer-events-none absolute top-1/2 left-3 -translate-y-1/2 text-slate-400"/>
+    <form
+      onSubmit={(event) => {
+        event.preventDefault();
 
-      <form onSubmit={handleSearch}>
-        <input
-          type="search"
-          name="city"
-          placeholder="Search for a city..."
-          aria-label="Search for a city"
-          className="h-10 w-full rounded-xl border border-slate-200 bg-white pr-3 pl-10 text-sm text-slate-800 shadow-sm outline-none transition-colors placeholder:text-slate-400 focus:border-blue-400"
-        />
-      </form>
-    </div>
+        const formData = new FormData(event.currentTarget);
+
+        const city =
+          formData.get("city")?.toString().trim() ?? "";
+
+        if (!city) return;
+
+        onSearch(city);
+      }}
+      className="flex h-10 w-full max-w-xs items-center gap-3 rounded-xl border border-slate-200 bg-white px-3 shadow-sm transition-colors focus-within:border-blue-400"
+    >
+      <button
+        type="submit"
+        aria-label="Search for city"
+        className="shrink-0 cursor-pointer text-slate-400 hover:text-blue-600"
+      >
+        <Search size={18} />
+      </button>
+
+      <input
+        name="city"
+        type="search"
+        placeholder="Search for a city..."
+        aria-label="City"
+        className="w-full min-w-0 bg-transparent text-sm text-slate-800 outline-none placeholder:text-slate-400"
+      />
+    </form>
   );
 }
