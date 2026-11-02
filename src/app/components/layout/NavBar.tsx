@@ -19,7 +19,7 @@ export default function NavBar() {
       className="fixed inset-x-0 bottom-0 z-50 flex h-16 items-center border-t border-white/10 bg-[#132b4e] text-white md:inset-y-0 md:right-auto md:h-dvh md:w-56 md:flex-col md:border-r md:border-t-0 md:bg-linear-to-b md:from-[#101e38] md:to-[#20538a]">
 
       <div className="hidden w-full items-center gap-3 border-b border-white/15 px-4 py-6 md:flex">
-        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white/10">
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-sky-200/30 bg-white/15 shadow-sm">
           <Image
             src="/weather-mark.svg"
             alt="Weather App logo"
