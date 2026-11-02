@@ -1,4 +1,3 @@
-
 import { NextRequest, NextResponse } from "next/server";
 
 import type { WeatherApiResponse } from "../../types/weather";
@@ -22,11 +21,7 @@ const CACHE_DURATION = 10 * 60 * 1000;
 
 const weatherCache = new Map<string, CacheEntry>();
 
-const pendingRequests = new Map<
-  string,
-  Promise<WeatherApiResponse>
->();
-
+const pendingRequests = new Map<string,Promise<WeatherApiResponse>>();
 class WeatherApiError extends Error {
   constructor(
     message: string,
@@ -83,7 +78,6 @@ async function fetchWeather(
 
   let location: GeoLocation | undefined;
 
-  // Find geographical coordinates
   for (const name of variants) {
     const geoParams = new URLSearchParams({
       q: name,
@@ -111,7 +105,6 @@ async function fetchWeather(
     throw new WeatherApiError("City not found", 404);
   }
 
-  // Build weather parameters
   const params = new URLSearchParams({
     lat: String(location.lat),
     lon: String(location.lon),
@@ -125,11 +118,11 @@ async function fetchWeather(
     await Promise.all([
       fetch(
         `https://api.openweathermap.org/data/2.5/weather?${params}`,
-        { next: { revalidate: 600 } }
+        { next: { revalidate: 900 } }
       ),
       fetch(
         `https://api.openweathermap.org/data/2.5/forecast?${params}`,
-        { next: { revalidate: 600 } }
+        { next: { revalidate: 900 } }
       ),
     ]);
 
@@ -138,11 +131,9 @@ async function fetchWeather(
 
   const [current, forecast] = await Promise.all([
     currentResponse.json() as Promise<
-      WeatherApiResponse["current"]
-    >,
+      WeatherApiResponse["current"]>,
     forecastResponse.json() as Promise<
-      WeatherApiResponse["forecast"]
-    >,
+      WeatherApiResponse["forecast"]>,
   ]);
 
   return {
@@ -182,7 +173,6 @@ export async function GET(request: NextRequest) {
   const cacheKey = city.toLocaleLowerCase("ro-RO");
   const cached = weatherCache.get(cacheKey);
 
-  // Return cached data when still valid
   if (cached && cached.expiresAt > Date.now()) {
     console.log("Weather cache hit:", city);
 
@@ -190,7 +180,6 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    // Reuse an ongoing request for the same city
     let pending = pendingRequests.get(cacheKey);
 
     if (!pending) {
@@ -200,13 +189,11 @@ export async function GET(request: NextRequest) {
 
     const data = await pending;
 
-    // Save successful response for 10 minutes
     weatherCache.set(cacheKey, {
       data,
       expiresAt: Date.now() + CACHE_DURATION,
     });
 
-    // Keep the in-memory cache bounded
     if (weatherCache.size > 100) {
       const oldestKey = weatherCache.keys().next().value;
 
