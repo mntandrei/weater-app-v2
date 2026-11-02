@@ -1,11 +1,12 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { House, CloudSun, Info, Cloud } from "lucide-react";
+import { Info, Cloud } from "lucide-react";
 
 const navLinks = [
-  { label: "Dashboard", href: "/", icon: House },
+  { label: "Dashboard", href: "/", icon: null },
   { label: "Info", href: "/Info", icon: Info },
 ];
 
@@ -19,7 +20,14 @@ export default function NavBar() {
 
       <div className="hidden w-full items-center gap-3 border-b border-white/15 px-4 py-6 md:flex">
         <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white/10">
-          <CloudSun size={24} className="text-sky-300" />
+          <Image
+            src="/weather-mark.svg"
+            alt="Weather App logo"
+            width={36}
+            height={36}
+            priority
+            className="h-9 w-9"
+          />
         </div>
 
         <div className="min-w-0">
@@ -47,7 +55,17 @@ export default function NavBar() {
                 href={href}
                 className={`flex flex-col items-center justify-center gap-1 rounded-lg px-2 py-2 text-[11px] transition-colors md:flex-row md:justify-start md:gap-3 md:px-3 md:py-2.5 md:text-sm ${
                   isActive ? "bg-white/15 text-white": "text-slate-300 hover:bg-white/10 hover:text-white"}`}>
-                <Icon size={19} className="shrink-0" />
+                {Icon ? (
+                  <Icon size={19} className="shrink-0" aria-hidden="true" />
+                ) : (
+                  <Image
+                    src="/weather-mark.svg"
+                    alt=""
+                    width={19}
+                    height={19}
+                    className="shrink-0"
+                  />
+                )}
                 <span>{label}</span>
               </Link>
             );
