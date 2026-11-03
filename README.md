@@ -109,14 +109,6 @@ My goal was not only to create a working application, but also to improve my und
 
 This project reflects my ongoing learning process, including the guidance and code assistance I received while building it.
 
-## Future Improvements
-
-- More detailed weather information.
-- Additional forecast visualizations.
-- Improved loading states and error handling.
-- Accessibility enhancements.
-- Further UI/UX refinements.
-
 ## Author
 
 **Andrei — Front-End Developer**
