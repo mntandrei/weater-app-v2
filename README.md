@@ -49,7 +49,7 @@ The application integrates the OpenWeatherMap API to display real-time weather c
 
 ### 4. Configure environment variables
 
-Create a `.env.local` file in the root directory.
+Create a `.env` file in the root directory.
 
 Add the following environment variable:
 
