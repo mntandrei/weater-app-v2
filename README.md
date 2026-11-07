@@ -28,9 +28,9 @@ Reduce extra requests with API caching.
 
 ## Technologies Used
 
-```Technology | Reason |
+```Technology 
 
- Next.js | Used as the framework for the app and for API routes. 
+Next.js | Used as the framework for the app and for API routes. 
 
 React | Used for the component based UI. 
 
@@ -42,8 +42,8 @@ Lucide React | Icons for the UI.
 
 React Icons | Icons for brands. 
 
-OpenWeatherMap API | Provides weather information and forecasts.```
-
+OpenWeatherMap API | Provides weather information and forecasts.
+```
 ## Getting Started
 
 1. Clone repo:
