@@ -29,7 +29,6 @@ Reduce extra requests with API caching.
 ## Technologies Used
 
 ```Technology 
-
 Next.js | Used as the framework for the app and for API routes. 
 
 React | Used for the component based UI. 
